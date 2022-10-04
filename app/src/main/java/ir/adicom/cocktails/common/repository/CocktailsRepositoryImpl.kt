@@ -1,6 +1,7 @@
 package ir.adicom.cocktails.common.repository
 
 import android.content.SharedPreferences
+import ir.adicom.cocktails.common.network.Cocktail
 import ir.adicom.cocktails.common.network.CocktailsApi
 
 private const val HIGH_SCORE_KEY = "HIGH_SCORE_KEY"
@@ -22,6 +23,6 @@ class CocktailsRepositoryImpl(
         return sharedPreferences.getInt(HIGH_SCORE_KEY, 0)
     }
 
-    override fun getAlcoholic(any: Any) {
+    override fun getAlcoholic(callback: RepositoryCallback<List<Cocktail>, String>) {
     }
 }

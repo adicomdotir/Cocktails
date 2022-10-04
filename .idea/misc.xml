@@ -3,8 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/ic_error_24dp.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/ic_favorite_24dp.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/ic_favorite_border_24dp.xml" value="0.209375" />
         <entry key="app/src/main/res/layout/activity_cocktails_game.xml" value="0.3697916666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3697916666666667" />
+        <entry key="app/src/main/res/layout/view_error.xml" value="0.19322916666666667" />
+        <entry key="app/src/main/res/layout/view_loading.xml" value="0.19322916666666667" />
       </map>
     </option>
   </component>

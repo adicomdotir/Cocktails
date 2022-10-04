@@ -2,33 +2,10 @@ package ir.adicom.cocktails.game.model
 
 import org.junit.Assert
 import org.junit.Test
-import org.mockito.kotlin.eq
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.times
-import org.mockito.kotlin.verify
+import org.mockito.ArgumentMatchers.anyString
+import org.mockito.kotlin.*
 
 class GameUnitTest {
-    @Test
-    fun whenIncrementingScore_shouldIncrementCurrentScore() {
-        val game = Game()
-        game.incrementScore()
-        Assert.assertEquals(1, game.currentScore)
-    }
-
-    @Test
-    fun whenIncrementingScore_aboveHighScore_shouldAlsoIncrementHighScore() {
-        val game = Game()
-        game.incrementScore()
-        Assert.assertEquals(1, game.highestScore)
-    }
-
-    @Test
-    fun whenIncrementingScore_belowHighScore_shouldNotIncrementHighScore() {
-        val game = Game(highest = 10)
-        game.incrementScore()
-        Assert.assertEquals(10, game.highestScore)
-    }
-
     @Test
     fun whenGettingNextQuestion_shouldReturnIt() {
         val question = Question("CORRECT", "INCORRECT")
@@ -62,6 +39,29 @@ class GameUnitTest {
         game.answer(question, "OPTION")
 
         verify(question, times(1)).answer(eq("OPTION"))
+    }
+
+    @Test
+    fun whenAnsweringCorrectly_shouldIncrementCurrentScore() {
+        var question = mock<Question>()
+        whenever(question.answer(anyString())).thenReturn(true)
+        val score = mock<Score>()
+        val game = Game(listOf(question), score)
+
+        game.answer(question, "OPTION")
+
+        Assert.assertEquals(1, score.current)
+    }
+
+    @Test
+    fun whenAnsweringIncorrectly_shouldNotIncrementCurrentScore() {
+        val question = mock<Question>()
+        whenever(question.answer(anyString())).thenReturn(false)
+        val score = mock<Score>()
+        val game = Game(listOf(question))
+        game.answer(question, "OPTION")
+
+        Assert.assertEquals(0, score.current)
     }
 }
 

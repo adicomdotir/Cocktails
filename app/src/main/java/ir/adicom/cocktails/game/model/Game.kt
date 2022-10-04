@@ -1,28 +1,23 @@
 package ir.adicom.cocktails.game.model
 
-class Game(questions: List<Question> = listOf(), highest: Int = 0) {
-    var currentScore = 0
-        private set
-    var highestScore = highest
-        private set
-    var questions = questions
-        private set
-    private var idx = 0
+class Game(private val questions: List<Question>, val score: Score = Score(0)) {
+
+    private var questionIndex = -1
 
     fun incrementScore() {
-        currentScore++
-        if (currentScore > highestScore) {
-            highestScore = currentScore
-        }
+        score.increment()
     }
 
     fun answer(question: Question, option: String) {
-        question.answer(option)
+        if (question.answer(option)) {
+            incrementScore()
+        }
     }
 
     fun nextQuestion(): Question? {
-        if (idx < questions.size) {
-            return questions[idx++]
+        if (questionIndex + 1 < questions.size) {
+            questionIndex += 1
+            return questions[questionIndex]
         }
         return null
     }

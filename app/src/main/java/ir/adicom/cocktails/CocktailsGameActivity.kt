@@ -10,6 +10,7 @@ class CocktailsGameActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
         binding = ActivityCocktailsGameBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }

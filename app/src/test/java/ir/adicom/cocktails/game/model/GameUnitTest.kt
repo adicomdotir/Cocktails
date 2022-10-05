@@ -50,7 +50,7 @@ class GameUnitTest {
 
         game.answer(question, "OPTION")
 
-        Assert.assertEquals(1, score.current)
+        verify(score).increment()
     }
 
     @Test
@@ -62,6 +62,46 @@ class GameUnitTest {
         game.answer(question, "OPTION")
 
         Assert.assertEquals(0, score.current)
+    }
+
+    @Test
+    fun whenAnsweringIncorrectlyThreeTimes_shouldFinishTheGame() {
+        val question1 = mock<Question>()
+        whenever(question1.answer(anyString())).thenReturn(false)
+        val question2 = mock<Question>()
+        whenever(question2.answer(anyString())).thenReturn(false)
+        val question3 = mock<Question>()
+        whenever(question3.answer(anyString())).thenReturn(false)
+        val questions = listOf(question1, question2, question3)
+        val game = Game(questions)
+
+        game.answer(question1, "INCORRECT")
+        game.answer(question2, "INCORRECT")
+        game.answer(question3, "INCORRECT")
+
+        Assert.assertTrue(game.isOver)
+    }
+
+    @Test
+    fun whenAnsweringCorrectlyThreeTimesSequentially_shouldStartGivingDoubleScore() {
+        val question1 = mock<Question>()
+        whenever(question1.answer(anyString())).thenReturn(true)
+        val question2 = mock<Question>()
+        whenever(question2.answer(anyString())).thenReturn(true)
+        val question3 = mock<Question>()
+        whenever(question3.answer(anyString())).thenReturn(true)
+        val question4 = mock<Question>()
+        whenever(question4.answer(anyString())).thenReturn(true)
+        val questions = listOf(question1, question2, question3, question4)
+        val score = mock<Score>()
+        val game = Game(questions, score)
+
+        game.answer(question1, "CORRECT")
+        game.answer(question2, "CORRECT")
+        game.answer(question3, "CORRECT")
+        game.answer(question4, "CORRECT")
+
+        verify(score, times(1 + 1 + 1 + 2)).increment()
     }
 }
 

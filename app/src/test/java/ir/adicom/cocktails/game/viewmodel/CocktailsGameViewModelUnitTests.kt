@@ -152,4 +152,24 @@ class CocktailsGameViewModelUnitTests {
             verify(questionObserver).onChanged(eq(question))
         }
     }
+
+//    @Test
+//    fun init_shouldHideGameOver() {
+//        viewModel.initGame()
+//
+//        verify(gameOverObserver).onChanged(eq(false))
+//    }
+//
+//    @Test
+//    fun answerQuestion_shouldShowGameOver_whenGameIsOver() {
+//        val score = mock<Score>()
+//        whenever(game.score).thenReturn(score)
+//        whenever(game.isOver).thenReturn(true)
+//        setUpFactoryWithSuccessGame(game)
+//        viewModel.initGame()
+//
+//        viewModel.answerQuestion(mock(), "VALUE")
+//
+//        verify(gameOverObserver).onChanged(eq(true))
+//    }
 }
